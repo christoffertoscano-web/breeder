@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="OnlyBreed — a satirical matchmaking platform for people who want to skip the small talk and focus on genetic compatibility.">
+  <title>OnlyBreed</title>
+  <style>
+    :root {
+      --bg: #0d0d12;
+      --panel: #17171f;
+      --panel-2: #20202b;
+      --text: #f5f3f8;
+      --muted: #aaa6b5;
+      --accent: #ff4f87;
+      --accent-2: #8c7cff;
+      --border: rgba(255,255,255,.09);
+      --max: 1120px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at 15% 10%, rgba(255,79,135,.14), transparent 30%),
+        radial-gradient(circle at 85% 15%, rgba(140,124,255,.15), transparent 30%),
+        var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    .container { width: min(92%, var(--max)); margin: auto; }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(18px);
+      background: rgba(13,13,18,.76);
+      border-bottom: 1px solid var(--border);
+    }
+
+    nav {
+      min-height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .logo {
+      font-size: 1.45rem;
+      font-weight: 900;
+      letter-spacing: -.04em;
+    }
+
+    .logo span { color: var(--accent); }
+
+    .nav-links {
+      display: flex;
+      gap: 22px;
+      color: var(--muted);
+      font-size: .92rem;
+    }
+
+    .nav-links a:hover { color: var(--text); }
+
+    .hero {
+      min-height: 78vh;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      padding: 90px 0 70px;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      padding: 7px 13px;
+      border: 1px solid rgba(255,79,135,.35);
+      border-radius: 999px;
+      color: #ff9cba;
+      background: rgba(255,79,135,.07);
+      font-size: .78rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+    }
+
+    h1 {
+      margin: 22px auto 18px;
+      max-width: 850px;
+      font-size: clamp(3.4rem, 9vw, 7rem);
+      line-height: .9;
+      letter-spacing: -.07em;
+    }
+
+    .gradient {
+      background: linear-gradient(100deg, var(--accent), #ff8bb0 45%, var(--accent-2));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero p {
+      max-width: 720px;
+      margin: 0 auto 30px;
+      color: var(--muted);
+      font-size: 1.12rem;
+    }
+
+    .cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 13px 20px;
+      border-radius: 12px;
+      background: var(--text);
+      color: #111;
+      font-weight: 850;
+      transition: transform .2s ease, box-shadow .2s ease;
+    }
+
+    .cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 35px rgba(255,79,135,.2);
+    }
+
+    section { padding: 86px 0; }
+    .section-head { max-width: 760px; margin-bottom: 38px; }
+    .section-head h2 {
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      line-height: 1.05;
+      letter-spacing: -.045em;
+      margin: 0 0 14px;
+    }
+    .section-head p { color: var(--muted); margin: 0; }
+
+    .prose {
+      max-width: 860px;
+      color: #d2ced9;
+      font-size: 1.03rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .card {
+      background: linear-gradient(145deg, rgba(255,255,255,.055), rgba(255,255,255,.025));
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 27px;
+    }
+
+    .card h3 { margin: 0 0 9px; font-size: 1.12rem; }
+    .card p { margin: 0; color: var(--muted); }
+
+    .number {
+      width: 36px;
+      height: 36px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 20px;
+      border-radius: 10px;
+      background: rgba(255,79,135,.12);
+      color: #ff9cba;
+      font-weight: 900;
+    }
+
+    .steps { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+
+    blockquote {
+      margin: 0;
+      color: #ddd9e3;
+      font-size: .98rem;
+    }
+
+    blockquote p { color: #ddd9e3; margin: 0 0 17px; }
+    cite { color: var(--muted); font-style: normal; font-weight: 750; }
+
+    .mission {
+      padding: 70px 30px;
+      text-align: center;
+      border: 1px solid rgba(255,79,135,.22);
+      border-radius: 28px;
+      background:
+        radial-gradient(circle at 50% 0%, rgba(255,79,135,.16), transparent 45%),
+        rgba(255,255,255,.025);
+    }
+
+    .mission h2 {
+      margin: 0 0 12px;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      letter-spacing: -.05em;
+    }
+
+    .mission p {
+      max-width: 650px;
+      margin: 0 auto 25px;
+      color: var(--muted);
+    }
+
+    footer {
+      padding: 35px 0 55px;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: .85rem;
+    }
+
+    @media (max-width: 760px) {
+      .nav-links { display: none; }
+      .grid, .steps { grid-template-columns: 1fr; }
+      .hero { min-height: 70vh; padding-top: 70px; }
+      section { padding: 62px 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <nav class="container">
+      <a class="logo" href="#">Only<span>Breed</span></a>
+      <div class="nav-links">
+        <a href="#about">About</a>
+        <a href="#history">History</a>
+        <a href="#why">Why OnlyBreed</a>
+        <a href="#how">How It Works</a>
+        <a href="#reviews">Reviews</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <span class="eyebrow">Dating, optimized for evolution</span>
+        <h1>Skip the small talk.<br><span class="gradient">Meet your match.</span></h1>
+        <p>
+          The world’s premier satirical matchmaking platform for people who look at a compatible
+          match and immediately think, “Yes, your genetic material would pair nicely with mine.”
+        </p>
+        <a class="cta" href="#about">Explore OnlyBreed ↓</a>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="container">
+        <div class="section-head">
+          <h2>What is OnlyBreed?</h2>
+          <p>We skipped the coffee dates and relationship limbo.</p>
+        </div>
+        <div class="prose">
+          <p>
+            OnlyBreed is the world’s premier dating platform for people who look at a compatible
+            match and immediately think, “Yes, your genetic material would pair nicely with mine.”
+            Forget casual messaging or endless coffee dates that lead nowhere. We skipped the small
+            talk, bypassed the standard relationship milestones, and went straight to the ultimate
+            evolutionary goal: biological continuation.
+          </p>
+          <p>
+            Whether you want to pass on your exceptional eyesight, your thick hair, or just your
+            uncanny ability to fold a fitted sheet, we connect you with like-minded individuals
+            ready to skip the romance and get down to repopulation.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="history">
+      <div class="container">
+        <div class="section-head">
+          <h2>The History of OnlyBreed</h2>
+          <p>Born from impatience with modern dating.</p>
+        </div>
+        <div class="prose">
+          <p>
+            It all started in 2024 when our founder realized that modern dating apps were far too
+            slow. Why swipe left on someone's bio just because they don’t like pineapple on pizza,
+            when their immune system profile is absolutely stellar?
+          </p>
+          <p>
+            After months of watching people date for six years just to break up over who gets the
+            dog, the blueprint for OnlyBreed was born. We launched with a simple mission: cut out
+            the middleman, eliminate the awkward “where is this going?” talk, and streamline the
+            survival of the human race.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="why">
+      <div class="container">
+        <div class="section-head">
+          <h2>Why Choose OnlyBreed?</h2>
+          <p>Four reasons to stop dating inefficiently.</p>
+        </div>
+
+        <div class="grid">
+          <article class="card">
+            <h3>Absolute Efficiency</h3>
+            <p>Save thousands of dollars on dinner dates, movie tickets, and Valentine’s Day gifts.</p>
+          </article>
+
+          <article class="card">
+            <h3>Genetic Matchmaking</h3>
+            <p>Our algorithm prioritizes high-tier traits like lactose tolerance, excellent credit scores, and strong dental enamel.</p>
+          </article>
+
+          <article class="card">
+            <h3>No Mixed Signals</h3>
+            <p>Everyone here has the exact same goal. You will never have to ask “what are we?” because the answer is always “prospective co-parents.”</p>
+          </article>
+
+          <article class="card">
+            <h3>Zero Small Talk</h3>
+            <p>Skip asking about their favorite color. Go straight to exchanging family medical histories.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="how">
+      <div class="container">
+        <div class="section-head">
+          <h2>How It Works: The 3-Step Pipeline</h2>
+          <p>A streamlined approach to matchmaking.</p>
+        </div>
+
+        <div class="grid steps">
+          <article class="card">
+            <div class="number">1</div>
+            <h3>Build Your Pedigree</h3>
+            <p>Upload your basic info, a recent photo, and your most impressive genetic brag (e.g., “Never had a cavity,” “Can do math in my head”).</p>
+          </article>
+
+          <article class="card">
+            <div class="number">2</div>
+            <h3>Swipe the Lineage</h3>
+            <p>Browse local candidates based on dominant physical traits, generational longevity, and practical survival skills.</p>
+          </article>
+
+          <article class="card">
+            <div class="number">3</div>
+            <h3>Fulfill the Mission</h3>
+            <p>Meet up, execute the plan, and expand the population.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="reviews">
+      <div class="container">
+        <div class="section-head">
+          <h2>User Reviews &amp; Testimonials</h2>
+          <p>Apparently, the algorithm is working.</p>
+        </div>
+
+        <div class="grid">
+          <article class="card">
+            <blockquote>
+              <p>“Before OnlyBreed, I spent three years dating a guy who turned out to have terrible posture and zero ambition. On OnlyBreed, I found a 6'2&quot; civil engineer with perfect vision in 20 minutes. Our baby already has a better credit score than my ex.”</p>
+              <cite>— Sarah T., 31</cite>
+            </blockquote>
+          </article>
+
+          <article class="card">
+            <blockquote>
+              <p>“I didn't have time for the whole ‘courtship’ ritual. I just wanted someone who would pass on a strong hair line to the next generation. Matched on Tuesday, met on Thursday, and now I have a baby boy who will never experience male pattern baldness. 10/10 service.”</p>
+              <cite>— Dave K., 34</cite>
+            </blockquote>
+          </article>
+
+          <article class="card">
+            <blockquote>
+              <p>“The efficiency is unmatched. No awkward dinners where you pretend to care about their college band. You just show up, agree that your combined DNA will produce an apex predator, and get to work. Truly the future of human interaction.”</p>
+              <cite>— Elena M., 29</cite>
+            </blockquote>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="mission">
+          <h2>Ready to optimize your love life?</h2>
+          <p>
+            Forget “seeing where things go.” Discover a completely unnecessary level of
+            evolutionary efficiency with OnlyBreed.
+          </p>
+          <a class="cta" href="#about">Begin the Pipeline</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      © 2026 OnlyBreed. A satirical concept website. All traits, algorithms, and evolutionary claims are fictional.
+    </div>
+  </footer>
+
+</body>
+</html>
